@@ -1,0 +1,38 @@
+package com.test.utility;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
+
+public class YamlUtility {
+
+public static void main(String[] args)throws Exception {
+// String filePath = "resources\\Student.yml";
+String filePath = "E:\\Mahesh\\test.yml";
+String envKey = "Dev";
+InputStream inputStream = new FileInputStream(new File(filePath));
+
+Yaml yaml = new Yaml();
+Map<String, Object> data = yaml.load(inputStream);
+ArrayList<HashMap<String, ArrayList<HashMap<String, String>>>> environment =
+(ArrayList<HashMap<String, ArrayList<HashMap<String, String>>>>) data.get("Enviroment") ;
+
+for (HashMap<String, ArrayList<HashMap<String, String>>> envDetils : environment) {
+if(envDetils.get(envKey) != null)
+{
+for (HashMap<String, String> envInternalDetails :envDetils.get(envKey)) {
+System.out.println("**");
+System.out.println(envInternalDetails.get("hostname"));
+System.out.println(envInternalDetails.get("mq"));
+System.out.println("**");
+}
+}
+}
+}
+
+}
