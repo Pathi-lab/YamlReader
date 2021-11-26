@@ -1,0 +1,23 @@
+import org.yaml.snakeyaml.Yaml;
+
+
+
+def String filePath = "C://Ganesh//groovy//yamlreader//test.yaml";
+def String envKey = "Dev";
+InputStream inputStream = new FileInputStream(new File(filePath));
+
+Yaml yaml = new Yaml();
+Map<String, Object> data = yaml.load(inputStream);
+ArrayList<HashMap<String, ArrayList<HashMap<String, String>>>> environment = (ArrayList<HashMap<String, ArrayList<HashMap<String, String>>>>) data.get("Enviroment") 
+
+for (HashMap<String, ArrayList<HashMap<String, String>>> envDetils : environment) {
+if(envDetils.get(envKey) != null)
+{
+for (HashMap<String, String> envInternalDetails :envDetils.get(envKey)) {
+System.out.println("**")
+System.out.println(envInternalDetails.get("hostname"))
+System.out.println(envInternalDetails.get("mq"))
+System.out.println("**")
+}
+}
+}
